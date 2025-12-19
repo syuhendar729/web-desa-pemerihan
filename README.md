@@ -1,7 +1,6 @@
 # Setup Development Website Desa Pemerihan
 
 > Ini adalah setup resmi untuk menginstall dan menjalankan development environtment website Desa Pemerihan.
-> Readme dan setup environment ini ditulis dan dirakit 90% tanpa AI oleh Faiq, jika ada masalah sebaiknya tanyakan langsung ke ts
 
 ## Installation
 
@@ -18,10 +17,14 @@
 ```sh
 docker compose up -d
 ```
-###### Lalu jalankan migration prisma
-> jangan lupa install dependensi di package.json (run npm install)
+###### Jalankan migration prisma
+> jangan lupa install dulu dependensi di package.json (run npm install)
 ```sh
 npx prisma db push
+```
+###### Buat prisma client artifacts (typescript things, you don't need to think about it)
+```sh
+npx prisma generate
 ```
 
 #### Usefull Commands:
