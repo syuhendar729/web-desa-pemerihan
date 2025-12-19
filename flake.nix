@@ -19,7 +19,7 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_24
-            #prisma
+            prisma
           ];
           shellHook = ''
             echo "Hello from devShell!"
