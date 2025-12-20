@@ -42,24 +42,22 @@ export async function PUT(req: Request) {
     if (!user || !user.password) {
       return Response.json(
         { error: "Invalid username or password" },
-        { status: 401 }
+        { status: 401 },
       );
     }
   } catch (err) {
-    return Response.json(
-      { error: "Internal Server Error" },
-      { status: 500 });
+    return Response.json({ error: "Internal Server Error" }, { status: 500 });
   }
 
   // compare the password of user request with the hash in the db in the same user
-  const checkPassword = await bcrypt.compare(result.data.password, user.password); //bool
+  const checkPassword = await bcrypt.compare(
+    result.data.password,
+    user.password,
+  ); //bool
   if (checkPassword === false) {
-    return Response.json(
-      { error: "Password salah" },
-      { status: 401 }
-    );
+    return Response.json({ error: "Password salah" }, { status: 401 });
   }
-  console.log(user)
+  console.log(user);
 
   try {
     await prisma.user.update({
@@ -69,13 +67,10 @@ export async function PUT(req: Request) {
       data: {
         password: result.data.newPassword,
       },
-    })
+    });
   } catch {
-    return Response.json(
-      { error: "Internal Server Error" },
-      { status: 500 });
+    return Response.json({ error: "Internal Server Error" }, { status: 500 });
   }
-
 
   return Response.json({
     message: "Password berhasil diubah.",
