@@ -12,6 +12,8 @@ const User = z.object({
 
 export async function POST(req: Request) {
   let body;
+  let userDb;
+
   try {
     body = await req.json();
   } catch {
@@ -29,51 +31,11 @@ export async function POST(req: Request) {
   }
 
   try {
-    const userDb = await prisma.user.findUnique({
+    userDb = await prisma.user.findUnique({
       where: {
         name: result.data.username,
       },
     });
-
-    if (!userDb || !userDb.password) {
-      return Response.json(
-        { error: "Username atau Password salah" },
-        { status: 401 },
-      );
-    }
-
-    const pwMatches = await bcrypt.compare(
-      result.data.password,
-      userDb.password,
-    );
-
-    if (!pwMatches) {
-      return Response.json(
-        { error: "Username atau Password salah" },
-        { status: 401 },
-      );
-    }
-
-    const token = jwt.sign(
-      {
-        exp:
-          Math.floor(Date.now() / AUTH_CONFIG.JWT_EXP_DIVIDER) +
-          AUTH_CONFIG.JWT_EXP_TIME,
-        data: {
-          userId: userDb.id,
-          username: userDb.name,
-        },
-      },
-      AUTH_CONFIG.JWT_SECRET,
-    );
-
-    return Response.json(
-      {
-        message: "Login berhasil",
-        token: token,
-      },
-      { status: 200 },
-    );
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError) {
       switch (err.code) {
@@ -85,4 +47,40 @@ export async function POST(req: Request) {
       }
     }
   }
+
+  if (!userDb || !userDb.password) {
+    return Response.json(
+      { error: "Username atau Password salah" },
+      { status: 401 },
+    );
+  }
+
+  const pwMatches = await bcrypt.compare(result.data.password, userDb.password);
+  if (!pwMatches) {
+    return Response.json(
+      { error: "Username atau Password salah" },
+      { status: 401 },
+    );
+  }
+
+  const token = jwt.sign(
+    {
+      exp:
+        Math.floor(Date.now() / AUTH_CONFIG.JWT_EXP_DIVIDER) +
+        AUTH_CONFIG.JWT_EXP_TIME,
+      data: {
+        userId: userDb.id,
+        username: userDb.name,
+      },
+    },
+    AUTH_CONFIG.JWT_SECRET,
+  );
+
+  return Response.json(
+    {
+      message: "Login berhasil",
+      token: token,
+    },
+    { status: 200 },
+  );
 }
