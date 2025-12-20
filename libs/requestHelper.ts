@@ -44,6 +44,7 @@ export async function validateBody<T>(
         message: "Validasi gagal",
         code: "VALIDATION_ERROR",
         status: 422,
+        details: z.treeifyError(result.error),
       },
     };
   }
