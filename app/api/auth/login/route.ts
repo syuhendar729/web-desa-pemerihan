@@ -1,0 +1,88 @@
+import bcrypt from "bcryptjs";
+import prisma from "@/libs/prisma";
+import { Prisma } from "@/generated/prisma/client";
+import * as z from "zod";
+import jwt from "jsonwebtoken";
+import { AUTH_CONFIG } from "./config";
+
+const User = z.object({
+  username: z.string().min(5),
+  password: z.string().min(5),
+});
+
+export async function POST(req: Request) {
+  let body;
+  try {
+    body = await req.json();
+  } catch {
+    return Response.json(
+      { error: "JSON body hilang atau tidak valid" },
+      { status: 400 },
+    );
+  }
+
+  const result = User.safeParse(body);
+  if (!result.success) {
+    return Response.json({
+      message: z.treeifyError(result.error),
+    });
+  }
+
+  try {
+    const userDb = await prisma.user.findUnique({
+      where: {
+        name: result.data.username,
+      },
+    });
+
+    if (!userDb || !userDb.password) {
+      return Response.json(
+        { error: "Username atau Password salah" },
+        { status: 401 },
+      );
+    }
+
+    const pwMatches = await bcrypt.compare(
+      result.data.password,
+      userDb.password,
+    );
+
+    if (!pwMatches) {
+      return Response.json(
+        { error: "Username atau Password salah" },
+        { status: 401 },
+      );
+    }
+
+    const token = jwt.sign(
+      {
+        exp:
+          Math.floor(Date.now() / AUTH_CONFIG.JWT_EXP_DIVIDER) +
+          AUTH_CONFIG.JWT_EXP_TIME,
+        data: {
+          userId: userDb.id,
+          username: userDb.name,
+        },
+      },
+      AUTH_CONFIG.JWT_SECRET,
+    );
+
+    return Response.json(
+      {
+        message: "Login berhasil",
+        token: token,
+      },
+      { status: 200 },
+    );
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      switch (err.code) {
+        default:
+          return Response.json(
+            { error: "Database nya error", code: err.code },
+            { status: 500 },
+          );
+      }
+    }
+  }
+}
