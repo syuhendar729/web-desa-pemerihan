@@ -6,9 +6,9 @@ export default function page() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/login", {
+      const res = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,8 +36,8 @@ export default function page() {
     <>
       <div className="flex justify-center h-screen items-center">
         <div className="border p-5 rounded-2xl border-slate-400">
-          <div className="font-bold text-xl">Login</div>
-          <p>Masukan akun anda</p>
+          <div className="font-bold text-xl">Register</div>
+          <p>Buat akun baru</p>
           <p className="text-slate-700 mt-4">Username:</p>
           <input
             className="border rounded-xl border-slate-400  px-2"
@@ -56,17 +56,17 @@ export default function page() {
           />
 
           <div className="flex flex-col justify-around">
-            <Link href="/auth/register">
+            <Link href="/auth/login">
               <div className="justify-end flex text-blue-400 text-sm">
-                Belum punya akun?
+                Sudah punya akun?
               </div>
             </Link>
             <div className="flex justify-center mt-2">
               <div
                 className="bg-slate-200 px-4 py-1 rounded-xl border border-slate-300 cursor-pointer hover:bg-slate-300"
-                onClick={() => handleLogin()}
+                onClick={() => handleRegister()}
               >
-                Login
+                Register
               </div>
             </div>
           </div>
