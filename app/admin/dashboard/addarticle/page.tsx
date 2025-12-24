@@ -48,7 +48,7 @@ export default function Page() {
         <div className='flex items-center gap-5 mb-5'>
           <p>Judul: </p>
           <input
-            className='border px-2 py-1 border-gray-300 rounded-2xl'
+            className='border px-2 py-1 border-gray-300'
             size={50}
             value={title}
             onChange={(e) => setTitle(e.target.value)}

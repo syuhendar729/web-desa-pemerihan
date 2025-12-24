@@ -1,6 +1,5 @@
 import prisma from "@/libs/prisma";
 import { Prisma } from "@/generated/prisma/client";
-import * as z from "zod";
 import { slugSchema } from "@/libs/strValidatorHelper";
 
 export async function GET(
@@ -16,6 +15,8 @@ export async function GET(
 
   // perlu validasi jwt ga? keanya ga perlu kalau cuma untuk melihat artikel? ya ga sih
   // kecuali edit, tambah, komen, dan lain lain
+  //
+  // fq: gk perlu harusnya, soalnya client non account yang bakal ngeliat
 
   try {
     articleDB = await prisma.article.findUnique({
