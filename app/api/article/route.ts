@@ -4,13 +4,13 @@ import * as z from "zod";
 import { JwtPayload } from "jsonwebtoken";
 import { validateBody } from "@/libs/requestHelper";
 import { validateJwtAuthHelper } from "@/libs/authHelper";
+import { minioClient, BUCKET_NAME } from '@/libs/minio';
 
 const Article = z.object({
   title: z.string().min(5),
-  // slug: z.string().min(5),
   content: z.string().min(5),
   featuredImageUrl: z.string().min(5),
-  additionalImages: z.array(z.string().min(5)),
+  // additionalImages: z.array(z.string().min(5)),
 });
 
 // interface/type for jwt payload (typescript things lol, they are so strict about type)
@@ -91,6 +91,12 @@ export async function POST(req: Request) {
     }
   }
 
+  try {
+    await minioClient.statObject(BUCKET_NAME, result.data.featuredImageUrl);
+  } catch (err) {
+    return { success: false, error: 'File tidak ditemukan di storage server.' };
+  }
+
   // generate slug from title
   let finalSlug = generateSlug(result.data.title);
 
@@ -112,7 +118,7 @@ export async function POST(req: Request) {
         slug: finalSlug,
         content: result.data.content,
         featuredImageUrl: result.data.featuredImageUrl,
-        additionalImages: result.data.additionalImages,
+        //additionalImages: result.data.additionalImages,
       },
     });
   } catch (err) {
