@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import DashboardSidebar from "@/ui/dashboardSidebar"
+import DashboardSidebar from "@/ui/dashboardSidebar";
 
 export default function ArticleDashboard() {
   return (
@@ -12,7 +12,7 @@ export default function ArticleDashboard() {
           <div className="font-bold text-xl">Article</div>
 
           <div className="my-5 flex">
-            <Link prefetch={false} href="/admin/dashboard/addarticle">
+            <Link prefetch={false} href="/admin/dashboard/article/addarticle">
               <div className="border rounded-2xl py-1 px-2 bg-[#CFEAFF] text-[#008AFC] cursor-pointer hover:bg-[#8CCCFF]">
                 <p>Tambah Artikel</p>
               </div>
