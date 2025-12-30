@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CiMail } from "react-icons/ci";
 import { BsFillTelephoneFill, BsMailbox } from "react-icons/bs";
 import { PiSealCheckFill } from "react-icons/pi";
@@ -15,6 +16,8 @@ import { FaFacebookF } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
+
+import { MdOpenInNew } from "react-icons/md";
 
 type Pejabat = {
   nama: string;
@@ -165,6 +168,19 @@ const newsData: News[] = [
 export default function Home() {
   return (
     <div>
+      {/*////// development bar to navigating to admin dashboard, just for development, we'll remove it on production */}
+      <div className="bg-[#333446] flex justify-end py-5 px-10 text-[#EAEFEF]">
+        <div className="flex">
+          <Link prefetch={false} href="/admin/dashboard">
+            <span className="flex items-center gap-2 rounded-2xl py-2 px-4 bg-[#F0F0F0] text-[#333446] font-bold cursor-pointer hover:bg-[#ACADAD] text-sm transition-colors">
+              <MdOpenInNew className="text-xl" />
+              <p>Masuk ke Dashboard</p>
+            </span>
+          </Link>
+        </div>
+      </div>
+      {/*////// development bar to navigating to admin dashboard, just for development, we'll remove it on production */}
+
       <div className="flex flex-row bg-[#FFFDE1] h-[10vh] w-[100vw] text-[clamp(12px,1.2vw,15px)]">
         {/* Logo */}
         <div className="flex items-center w-[32%] h-[100%] portrait:w-[42%]">
