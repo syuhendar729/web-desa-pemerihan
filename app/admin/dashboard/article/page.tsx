@@ -63,9 +63,12 @@ export default function ArticleDashboard() {
               </div>
 
               <div className="flex gap-3 text-sm font-medium">
-                <button className="px-3 py-1 text-blue-600 hover:bg-blue-50 rounded">
+                <Link
+                  href={`/admin/dashboard/article/editarticle/${article.id}`}
+                  className="px-3 py-1 text-blue-600 hover:bg-blue-50 rounded border border-transparent hover:border-blue-100"
+                >
                   Edit
-                </button>
+                </Link>
                 <button className="px-3 py-1 text-red-600 hover:bg-red-50 rounded">
                   Hapus
                 </button>
