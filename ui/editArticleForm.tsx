@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import "react-quill-new/dist/quill.snow.css";
 import { getPresignedUploadUrl } from "@/libs/awsS3Action";
-import { IoSend, IoSave } from "react-icons/io5";
+import { IoSave } from "react-icons/io5";
 
 const ReactQuill = dynamic(() => import("react-quill-new"), {
   ssr: false,

@@ -3,6 +3,9 @@ import Link from "next/link";
 import DashboardSidebar from "@/ui/dashboardSidebar";
 import { PiArticleMedium } from "react-icons/pi";
 import { useEffect, useState } from "react";
+import { CiTrash } from "react-icons/ci";
+import { MdOutlineModeEdit } from "react-icons/md";
+
 
 export default function ArticleDashboard() {
   const [articles, setArticles] = useState<any>([]);
@@ -33,6 +36,17 @@ export default function ArticleDashboard() {
     }
   };
 
+  const timeFormat = (iso: string) => {
+    const date = new Date(iso);
+    const formatted = date.toLocaleString("id-ID", {
+      timeZone: "Asia/Jakarta",
+      dateStyle: "full",
+      timeStyle: "medium",
+    });
+
+    return formatted
+  }
+
   useEffect(() => {
     getArticleData();
   }, []);
@@ -55,22 +69,28 @@ export default function ArticleDashboard() {
 
         {articles.map((article: any) => (
           <div key={article.id} className="flex flex-col gap-4 mb-5">
-            <div className="border rounded-lg p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shadow-sm">
+            <div className="border border-[#ACACAF] rounded-2xl px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <p className="text-gray-700 truncate max-w-md font-bold">
+                <p className="text-gray-700 truncate max-w-md text-xl font-bold">
                   {article.title}
+                </p>
+                <p className="text-gray-700 truncate max-w-md text-sm">
+                  Dibuat pada:
+                </p>
+                <p className="text-gray-700 truncate max-w-md text-sm">
+                  {timeFormat(article.createdAt)}
                 </p>
               </div>
 
-              <div className="flex gap-3 text-sm font-medium">
+              <div className="flex gap-1 text-sm font-medium">
                 <Link
                   href={`/admin/dashboard/article/editarticle/${article.id}`}
-                  className="px-3 py-1 text-[#1e66f5] hover:bg-blue-50 rounded border border-transparent"
+                  className="px-3 py-1 text-xl text-[#1e66f5] hover:bg-blue-50 rounded border border-transparent"
                 >
-                  Edit
+                  <MdOutlineModeEdit />
                 </Link>
-                <button className="px-3 py-1 text-[#e64553] hover:bg-red-50 rounded">
-                  Hapus
+                <button className="px-3 py-1 text-xl text-[#e64553] hover:bg-red-50 rounded">
+                  <CiTrash />
                 </button>
               </div>
             </div>
