@@ -17,7 +17,6 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 import { IoMenu } from "react-icons/io5";
-
 import { MdOpenInNew } from "react-icons/md";
 
 type Pejabat = {
@@ -221,7 +220,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex md:hidden justify-center items-center h-[100%] w-[15%]">
-          <IoMenu className="h-[30%] w-auto"/>
+          <IoMenu className="h-[30%] w-auto" />
         </div>
       </div>
       <div className="flex flex-row justify-center items-center landscape:h-[90vh] portrait:w-[100vw] portrait:aspect-[2/1.25]">
@@ -444,19 +443,19 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center landscape:h-[140vh] portrait:w-[100%] portrait:aspect-[5/4.5] portrait:md:aspect-[1/1.2] gap-[2%]">
-        <div className="flex flex-col items-center h-[20%] w-[100%]">
-          <div className="flex justify-center items-end h-[65%] w-[100%] text-[#452829] text-[clamp(12px,2vw,40px)] portrait:text-[clamp(12px,2vh,40px)]">
+      <div className="flex flex-col items-center landscape:h-[140vh] portrait:w-[100%] portrait:aspect-[1/3.2] portrait:lg:aspect-[5/4.5] portrait:sm:aspect-[1/1.2] gap-[2%]">
+        <div className="flex flex-col items-center h-[15%] sm:h-[20%] w-[100%]">
+          <div className="flex justify-center items-end h-[40%] sm:h-[65%] w-[100%] text-[#452829] text-[clamp(12px,2vw,40px)] portrait:text-[clamp(12px,2vh,40px)]">
             <b>Lokasi Desa</b>
           </div>
           <div className="flex bg-[#E9B63B] h-[2%] w-[8%] rounded-[5px] mt-[1%]"></div>
-          <div className="flex justify-center items-center h-[33%] w-[100%]">
+          <div className="flex justify-center items-center h-[58%] sm:h-[33%] w-[100%] text-center p-[2%] sm:p-0">
             Temukan kami di kawasan yang mudah diakses dengan pemandangan alam
             yang menakjubkan
           </div>
         </div>
-        <div className="flex flex-col h-[73%] w-[90%]">
-          <div className="flex flex-col items-center justify-center gap-2 bg-gray-500 rounded-md h-[65%] w-[100%] shadow-[0_3px_16px_rgba(0,0,0,0.4)]">
+        <div className="flex flex-col h-[85%] sm:h-[73%] w-[90%]">
+          <div className="flex flex-col items-center justify-center gap-2 bg-gray-500 rounded-md aspect-square sm:h-[65%] w-[100%] shadow-[0_3px_16px_rgba(0,0,0,0.4)]">
             <div className="flex justify-center items-center bg-[#452829] rounded-full h-[13%] aspect-square">
               <FaLocationDot className="text-yellow-500 w-[45%] h-auto" />
             </div>
@@ -469,9 +468,9 @@ export default function Home() {
               <div>Some coordinate....</div>
             </div>
           </div>
-          <div className="flex flex-row items-center h-[35%] w-[100%]">
-            <div className="flex flex-row justify-between items-center h-[100%] w-[100%]">
-              <div className="flex justify-center items-center flex-shrink-0 w-[32%] h-[100%]">
+          <div className="flex flex-row items-center h-[65%] sm:h-[35%] w-[100%]">
+            <div className="flex flex-col sm:flex-row justify-between items-center h-[100%] w-[100%]">
+              <div className="flex justify-center items-center flex-shrink-0 w-[100%] sm:w-[32%] h-[32%] sm:h-[100%]">
                 <div className="flex flex-col gap-2 justify-center items-start rounded-xl shadow-[0_3px_16px_rgba(0,0,0,0.12)] p-3 h-[90%] w-full aspect-[3/4] bg-white">
                   <div className="flex justify-center items-center bg-yellow-500 rounded-full h-[20%] aspect-square">
                     <FaLocationDot className="text-[#452829] w-[45%] h-auto" />
@@ -486,7 +485,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-center items-center flex-shrink-0 w-[32%] h-[100%]">
+              <div className="flex justify-center items-center flex-shrink-0 w-[100%] sm:w-[32%] h-[32%] sm:h-[100%]">
                 <div className="flex flex-col gap-2 justify-center items-start rounded-xl shadow-[0_3px_16px_rgba(0,0,0,0.12)] p-3 h-[90%] w-full aspect-[3/4] bg-white">
                   <div className="flex justify-center items-center bg-yellow-500 rounded-full h-[20%] aspect-square">
                     <BsFillTelephoneFill className="text-[#452829] w-[45%] h-auto" />
@@ -501,7 +500,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-center items-center flex-shrink-0 w-[32%] h-[100%]">
+              <div className="flex justify-center items-center flex-shrink-0 w-[100%] sm:w-[32%] h-[32%] sm:h-[100%]">
                 <div className="flex flex-col gap-2 justify-center items-start rounded-xl shadow-[0_3px_16px_rgba(0,0,0,0.12)] p-3 h-[90%] w-full aspect-[3/4] bg-white">
                   <div className="flex justify-center items-center bg-yellow-500 rounded-full h-[20%] aspect-square">
                     <FaClock className="text-[#452829] w-[45%] h-auto" />
@@ -520,18 +519,18 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-center landscape:h-[100vh] portrait:w-[100%] portrait:lg:aspect-[3/1.8] portrait:md:aspect-[3/2.5] bg-[#F5F2F2]">
+      <div className="flex flex-col items-center landscape:h-[100vh] portrait:w-[100%] portrait:aspect-[1/2] portrait:lg:aspect-[3/1.8] portrait:sm:aspect-[3/2.5] bg-[#F5F2F2]">
         <div className="flex flex-col items-center h-[20%] w-[100%]">
-          <div className="flex justify-center items-end h-[65%] w-[100%] text-[#452829] text-[clamp(12px,2vw,40px)] portrait:text-[clamp(12px,2vh,40px)]">
+          <div className="flex justify-center items-end h-[40%] sm:h-[65%] w-[100%] text-[#452829] text-[clamp(12px,2vw,40px)] portrait:text-[clamp(12px,2vh,40px)]">
             <b>Kabar Desa</b>
           </div>
           <div className="flex bg-[#E9B63B] h-[2%] w-[8%] rounded-[5px] mt-[1%]"></div>
-          <div className="flex justify-center items-center h-[33%] w-[100%]">
+          <div className="flex justify-center items-center h-[58%] sm:h-[33%] w-[100%] text-center p-[3%] sm:p-0">
             Berita terkini dan artikel menarik seputar perkembangan dan kegiatan
             di Desa Sejahtera
           </div>
         </div>
-        <div className="flex flex-row h-[65%] w-[90%]">
+        <div className="flex flex-row h-[65%] w-[100%] sm:w-[90%]">
           <div className="flex flex-row items-center h-[100%] w-[100%]">
             <div className="flex items-center gap-6 overflow-x-auto snap-x snap-mandatory px-4 scrollbar-hide w-[100%] h-[100%]">
               <div className="hidden start-snap"></div>
@@ -572,15 +571,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center h-[15%] w-[100%]">
-          <div className="flex justify-center items-center bg-[#AA2B1D] gap-3 rounded-xl h-[55%] w-[25%]">
+        <div className="flex justify-center items-center h-[15%] sm:h-[15%] w-[100%]">
+          <div className="flex justify-center items-center bg-[#AA2B1D] gap-3 rounded-xl h-[55%] w-[55%] sm:w-[25%]">
             <div className="text-white">Lihat Semua Artikel</div>
             <FaArrowRight className="text-white" />
           </div>
         </div>
       </div>
-      <div className="flex flex-col bg-[#3B060A] landscape:h-[100vh] portrait:w-[100%] portrait:aspect-[2/1.3]">
-        <div className="flex flex-col justify-center h-[43%] bg-[#B87C4C]">
+      <div className="flex flex-col bg-[#3B060A] landscape:h-[100vh] portrait:w-[100%] portrait:aspect-[1/2.8] portrait:sm:aspect-[2/1.3]">
+        <div className="flex flex-col justify-center h-[25%] sm:h-[43%] bg-[#B87C4C]">
           <div className="flex flex-col justify-center items-center text-center gap-3 h-[65%]">
             <div className="flex font-bold text-[clamp(12px,2.3vw,40px)] portrait:text-[clamp(12px,2.3vh,40px)] text-white">
               Kunjungi Desa Sejahtera
@@ -588,14 +587,14 @@ export default function Home() {
             <div className="flex text-[clamp(12px,1.5vw,20px)] portrait:text-[clamp(12px,1.5vh,20px)] text-yellow-500">
               Lorem Ipsum DOlor SIt AMet adispiscis consectetur elit
             </div>
-            <div className="flex flex-row items-center justify-between gap-3 h-[40%] landscape:w-[35%] portrait:w-[45%]">
+            <div className="flex flex-row items-center justify-between gap-3 h-[40%] landscape:w-[35%] portrait:w-[80%] portrait:sm:w-[45%]">
               <div className="flex flex-row justify-center items-center h-[90%] w-[60%] gap-2 rounded-xl bg-yellow-500">
                 <FaCalendarCheck className="text-brown-500" />
                 <div className="text-brown-500 font-semibold text-[clamp(10px,1.2vw,18px)] portrait:text-[clamp(10px,1.2vh,18px)]">
                   Jadwalkan Kunjungan
                 </div>
               </div>
-              <div className="flex flex-row justify-center items-center h-[90%] w-[40%] border-white border-2 gap-3 rounded-xl bg-white/30">
+              <div className="flex flex-row justify-center items-center h-[90%] w-[40%] border-white border-2 gap-2 rounded-xl bg-white/30">
                 <BsFillTelephoneFill className="text-white" />
                 <div className="text-white font-semibold text-[clamp(10px,1.2vw,18px)] portrait:text-[clamp(10px,1.2vh,18px)]">
                   Hubungi Kami
@@ -605,31 +604,31 @@ export default function Home() {
           </div>
         </div>
         <div className="h-[1px] bg-[#D9CFC7]"></div>
-        <div className="flex flex-col justify-center items-center h-[57%] w-[100%]">
+        <div className="flex flex-col justify-center items-center h-[75%] w-[100%]">
           <div className="flex flex-col h-[100%] w-[90%]">
-            <div className="flex flex-row h-[80%] w-[100%] pt-7">
-              <div className="flex flex-col h-[100%] w-[25%]">
-                <div className="flex flex-row h-[30%] w-[100%]">
-                  <div className="flex justify-center items-center h-[100%] aspect-square">
+            <div className="flex flex-col gap-[2%] sm:flex-row h-[90%] sm:h-[80%] w-[100%] pt-5 sm:pt-7">
+              <div className="flex flex-col h-[25%] sm:h-[100%] w-[100%] sm:w-[25%]">
+                <div className="flex flex-row landscape:gap-[8%] portrait:gap-[3%] portrait:sm:gap-[15%] h-[50%] sm:h-[30%] w-[100%]">
+                  <div className="flex justify-center items-center w-[15%] sm:w-[20%] aspect-square">
                     <div className="flex justify-center items-center h-[70%] aspect-square bg-yellow-500 rounded-full">
                       <FaMountainSun className="h-[50%] w-auto" />
                     </div>
                   </div>
-                  <div className="flex flex-col h-[100%] w-[70%]">
+                  <div className="flex flex-col h-[100%] w-[80%]">
                     <div className="flex items-end font-semibold h-[50%] w-[100%] text-white text-[clamp(12px,1.5vw,30px)]">
                       Desa Sejahtera
                     </div>
-                    <div className="flex h-[50%] w-[100%] text-yellow-500 portrait:text-[clamp(10px,1vh,15px)]">
+                    <div className="flex sm:h-[50%] w-[100%] text-yellow-500 portrait:text-[clamp(10px,1vh,15px)]">
                       Kabupaten Makmur
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-center items-center text-[#D9CFC7] text-[clamp(10px,1vw,15px)] p-3">
+                <div className="flex justify-center h-[50%] sm:h-[70%] items-start text-[#D9CFC7] text-[clamp(10px,1vw,15px)] pt-3">
                   Lorem Ipsum Dolor Sit Amet Lorem Ipsum Dolor Sit Amet Lorem
                   Ipsum Dolor Sit Amet
                 </div>
               </div>
-              <div className="flex flex-col gap-7 h-[100%] w-[25%]">
+              <div className="flex flex-col gap-3 sm:gap-7 h-[25%] sm:h-[100%] w-[100%] sm:w-[25%]">
                 <div className="flex items-end text-white h-[15%] font-semibold text-[clamp(12px,1.5vw,30px)]">
                   Navigasi
                 </div>
@@ -648,7 +647,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-7 h-[100%] w-[25%]">
+              <div className="flex flex-col gap-3 sm:gap-7 h-[25%] sm:h-[100%] w-[100%] sm:w-[25%]">
                 <div className="flex items-end text-white h-[15%] font-semibold text-[clamp(12px,1.5vw,30px)]">
                   Layanan
                 </div>
@@ -667,12 +666,12 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col h-[100%] w-[25%]">
+              <div className="flex flex-col h-[25%] sm:h-[100%] w-[100%] sm:w-[25%]">
                 <div className="flex items-end text-white h-[15%] font-semibold text-[clamp(12px,1.5vw,30px)]">
                   Kontak Kami
                 </div>
-                <div className="flex items-center h-[85%]">
-                  <div className="flex flex-col landscape:gap-3 portrait:lg:gap-3 portrait:md:gap-1.5 h-[80%] w-[100%]">
+                <div className="flex items-center h-[100%] sm:h-[85%]">
+                  <div className="flex flex-col landscape:gap-3 portrait:lg:gap-3 portrait:gap-1.5 h-[80%] w-[100%]">
                     <div className="flex flex-row items-center gap-3 h-[25%]">
                       <FaLocationDot className="h-[80%] aspect-square text-yellow-500" />
                       <div className="text-[#D9CFC7] text-[clamp(10px,1vw,15px)]">
@@ -707,7 +706,7 @@ export default function Home() {
               </div>
             </div>
             <div className="h-[1px] w-[100%] bg-white"></div>
-            <div className="flex justify-center items-center h-[20%] w-[100%] text-white text-[clamp(10px,1.5vw,20px)]">
+            <div className="flex justify-center items-center h-[10%] sm:h-[20%] w-[100%] text-white text-[clamp(10px,1.5vw,20px)]">
               © 2025 Desa Sejahtera. All rights reserved.
             </div>
           </div>
