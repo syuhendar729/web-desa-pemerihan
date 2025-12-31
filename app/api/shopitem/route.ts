@@ -92,3 +92,82 @@ export async function POST(req: Request) {
   // finally send success response
   return Response.json({ message: "Item berhasil diupload" }, { status: 200 });
 }
+
+/////////
+// GET //
+/////////
+
+const listPagingSchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(10),
+});
+
+export async function GET(req: Request) {
+  let articleList;
+  let dataCount = 0;
+  const { searchParams } = new URL(req.url);
+  const queryParams = {
+    page: searchParams.get("page"),
+    limit: searchParams.get("limit"),
+  };
+  const result = listPagingSchema.safeParse(queryParams);
+  if (!result.success) {
+    return Response.json(
+      { error: z.treeifyError(result.error) },
+      { status: 422 },
+    );
+  }
+  const { page, limit } = result.data;
+  const skip = (page - 1) * limit;
+
+  try {
+    [articleList, dataCount] = await prisma.$transaction([
+      prisma.shopItems.findMany({
+        skip: skip,
+        take: limit,
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      prisma.article.count(),
+    ]);
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError) {
+      switch (err.code) {
+        default:
+          return Response.json(
+            { error: "Database error", err, code: err.code },
+            { status: 500 },
+          );
+      }
+    }
+  }
+
+  const totalPages = Math.ceil(dataCount / limit);
+
+  if (page > totalPages && dataCount > 0) {
+    return Response.json(
+      {
+        error: "Halaman tidak ditemukan",
+        message: `Hanya tersedia ${totalPages} halaman.`,
+        meta: {
+          page,
+          totalPages,
+        },
+      },
+      { status: 404 },
+    );
+  }
+
+  return Response.json({
+    data: articleList,
+    meta: {
+      page,
+      limit,
+      totalItems: dataCount,
+      totalPages,
+      hasNextPage: page < totalPages, // untuk mempermudah frontend nanti
+      hasPrevPage: page > 1, // misal ada tombol next/pref page gitu bisa pakai boolean dari sini
+    },
+  });
+}

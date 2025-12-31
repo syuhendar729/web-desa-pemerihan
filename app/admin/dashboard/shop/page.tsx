@@ -4,16 +4,15 @@ import DashboardSidebar from "@/ui/dashboardSidebar";
 import { MdAddBusiness } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { CiTrash } from "react-icons/ci";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { timeFormatter } from "@/libs/timeFormatterToID";
 
 export default function Page() {
-  const [shop, setShop] = useState<any>([]);
+  const [shopItem, setShopItem] = useState<any>([]);
 
   const getShopData = async () => {
     try {
       const res = await fetch(
-        "http://localhost:3000/api/article?page=1&limit=10",
+        "http://localhost:3000/api/shopitem?page=1&limit=10",
         {
           method: "GET",
           headers: {
@@ -28,7 +27,7 @@ export default function Page() {
 
       const data = await res.json();
       console.log(data);
-      setShop(data.data);
+      setShopItem(data.data);
 
       localStorage.setItem("auth", data.token);
     } catch (err) {
@@ -56,28 +55,22 @@ export default function Page() {
           </Link>
         </div>
 
-        {shop.map((article: any) => (
-          <div key={article.id} className="flex flex-col gap-4 mb-5">
+        {shopItem.map((item: any) => (
+          <div key={item.id} className="flex flex-col gap-4 mb-5">
             <div className="border border-[#ACACAF] rounded-2xl px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <p className="text-gray-700 truncate max-w-md text-xl font-bold">
-                  {article.title}
+                  {item.name}
                 </p>
                 <p className="text-gray-700 truncate max-w-md text-sm">
                   Dibuat pada:
                 </p>
                 <p className="text-gray-700 truncate max-w-md text-sm">
-                  {timeFormatter(article.createdAt)}
+                  {timeFormatter(item.createdAt)}
                 </p>
               </div>
 
               <div className="flex gap-1 text-sm font-medium">
-                <Link
-                  href={`/admin/dashboard/article/editarticle/${article.id}`}
-                  className="px-3 py-1 text-xl text-[#1e66f5] hover:bg-blue-50 rounded border border-transparent"
-                >
-                  <MdOutlineModeEdit />
-                </Link>
                 <button className="px-3 py-1 text-xl text-[#e64553] hover:bg-red-50 rounded">
                   <CiTrash />
                 </button>
