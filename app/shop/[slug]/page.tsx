@@ -20,20 +20,22 @@ export default async function Page({
 
   return (
     <>
-      <div className="flex justify-center">
-        <div className="w-1/2 mt-10">
-          <h1 className="font-bold text-5xl mb-5">
-            <div dangerouslySetInnerHTML={{ __html: shopItem?.name ?? "" }} />
-          </h1>
+      <div className="flex justify-center gap-10 mt-20">
+        <div className="w-72 h-72 items-center flex bg-slate-50 border rounded-2xl border-[#ACACAF]">
           {imageUrl ? (
-            <img src={imageUrl} className="w-full h-auto object-contain" />
+            <img src={imageUrl} className="object-contain" />
           ) : (
             <div>gk ada gambar</div>
           )}
-          {/* ini merender content artikel dari db sebagai html, rentan xss, jadi hati-hati*/}
-          <div
-            dangerouslySetInnerHTML={{ __html: shopItem?.description ?? "" }}
-          />
+        </div>
+        <div>
+          <h1 className="font-bold text-2xl mb-2 ">
+            {shopItem.name}
+          </h1>
+          <p className="font-bold text-3xl">Rp. {shopItem.price}</p>
+          <p className="font-bold text-xl mt-2">Contact</p>
+          <p className="font-bold text-xl">{shopItem.contact}</p>
+          <p className="whitespace-pre-line">{shopItem.description}</p>
         </div>
       </div>
     </>

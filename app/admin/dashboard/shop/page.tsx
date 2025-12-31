@@ -5,6 +5,8 @@ import { MdAddBusiness } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { CiTrash } from "react-icons/ci";
 import { timeFormatter } from "@/libs/timeFormatterToID";
+import { RiExpandDiagonalLine } from "react-icons/ri";
+import { MdOutlineModeEdit } from "react-icons/md";
 
 export default function Page() {
   const [shopItem, setShopItem] = useState<any>([]);
@@ -71,6 +73,20 @@ export default function Page() {
               </div>
 
               <div className="flex gap-1 text-sm font-medium">
+                <Link
+                  href={`/shop/${item.slug}`}
+                  className="px-3 py-1 text-xl text-[#40a02b] hover:bg-green-50 rounded border border-transparent"
+                >
+                  <RiExpandDiagonalLine />
+                </Link>
+                {/*
+                <Link
+                  href={`/admin/dashboard/article/editarticle/${article.id}`}
+                  className="px-3 py-1 text-xl text-[#1e66f5] hover:bg-blue-50 rounded border border-transparent"
+                >
+                  <MdOutlineModeEdit />
+                </Link>
+                */}
                 <button className="px-3 py-1 text-xl text-[#e64553] hover:bg-red-50 rounded">
                   <CiTrash />
                 </button>
