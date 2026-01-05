@@ -29,7 +29,6 @@ export default function ArticleDashboard() {
         );
 
         const data = await res.json();
-        console.log(data)
 
         // if success != true, fallback user to login page
         if (!data.success) {

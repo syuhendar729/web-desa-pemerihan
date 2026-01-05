@@ -127,7 +127,6 @@ export async function POST(req: Request) {
 /////////
 export async function GET(req: Request) {
   // validate the jwt token
-  console.log(req.headers)
   const decodedJwt = await validateJwtAuthHelper(
     req.headers.get("authorization"),
   );
