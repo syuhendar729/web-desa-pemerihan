@@ -11,13 +11,14 @@ export default function Page() {
   const [price, setPrice] = useState(0);
   const [contact, setContact] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState<(File | null)[]>([null, null, null, null, null]);
+  const [file, setFile] = useState<(File | null)[]>([]);
   const fileInputRef = useRef<(HTMLInputElement | null)[]>([]);
   const howMuchImages = [0, 1, 2, 3, 4]
 
-  const handleAddArticle = async (objectName: string) => {
+  const handleAddArticle = async (objectName: string[]) => {
     try {
       const token = localStorage.getItem("auth");
+      console.log(objectName)
 
       const res = await fetch("http://localhost:3000/api/shopitem", {
         method: "POST",
@@ -30,8 +31,8 @@ export default function Page() {
           price: price,
           contact: contact,
           description: description,
-          featuredImageUrl: objectName,
-          // additionalImages: ["xxxxxx"]
+          featuredImageUrl: "xxxxx",
+          additionalImages: objectName
         }),
       });
 
@@ -48,34 +49,55 @@ export default function Page() {
   };
 
   const handleUpload = async () => {
-    if (file.length == 0) return;
+    // A. Filter: Hanya ambil yang bukan null (membuang empty slots)
+    // BENAR (Mengecek keberadaan file secara pasti)
+    const validFiles = file.filter((f): f is File => !!f);
+
+    if (validFiles.length === 0) {
+      alert("Pilih minimal satu gambar!");
+      return;
+    }
 
     try {
-      const { success, url, objectName, error } = await getPresignedUploadUrl(
-        file[0]!.name,
-        file[0]!.type,
-      );
+      // B. Map: Ubah setiap file menjadi sebuah Promise upload
+      const uploadPromises = validFiles.map(async (currentFile) => {
+        // 1. Get Presigned URL
+        const { success, url, objectName, error } = await getPresignedUploadUrl(
+          currentFile.name,
+          currentFile.type
+        );
 
-      if (!success || !url || !objectName) {
-        throw new Error(error || "Gagal mendapatkan URL upload");
-      }
+        if (!success || !url || !objectName) {
+          throw new Error(`Gagal generate URL untuk ${currentFile.name}: ${error}`);
+        }
 
-      // upload to minio (Direct from Browser)
-      const uploadRes = await fetch(url, {
-        method: "PUT",
-        body: file[0],
-        headers: {
-          "Content-Type": file[0]!.type,
-        },
+        // 2. Upload ke MinIO (PUT)
+        const uploadRes = await fetch(url, {
+          method: "PUT",
+          body: currentFile,
+          headers: {
+            "Content-Type": currentFile.type,
+          },
+        });
+
+        if (!uploadRes.ok) {
+          throw new Error(`Gagal upload file ${currentFile.name} ke storage`);
+        }
+
+        // 3. Return objectName jika sukses
+        return objectName;
       });
 
-      if (!uploadRes.ok) {
-        throw new Error("Gagal upload ke Minio");
-      }
+      // C. Promise.all: Tunggu semua proses upload selesai
+      // Hasilnya adalah array berisi objectName yang sukses: ["img1.jpg", "img2.png", ...]
+      const uploadedObjectNames = await Promise.all(uploadPromises);
 
-      handleAddArticle(objectName);
+      // D. Panggil fungsi simpan ke DB dengan array hasil upload
+      handleAddArticle(uploadedObjectNames);
+
     } catch (err: any) {
-      console.error(err);
+      console.error("Upload Error:", err);
+      alert("Terjadi kesalahan saat mengupload gambar.");
     }
   };
 

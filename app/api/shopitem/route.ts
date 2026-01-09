@@ -12,7 +12,7 @@ const ShopItem = z.object({
   contact: z.string(),
   description: z.string(),
   featuredImageUrl: z.string().min(5),
-  // additionalImages: z.array(z.string().min(5)),
+  additionalImages: z.array(z.string()),
 });
 
 interface MyJwtPayload extends JwtPayload {
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
         contact: result.data.contact,
         description: result.data.description,
         featuredImageUrl: result.data.featuredImageUrl,
-        //additionalImages: result.data.additionalImages,
+        additionalImages: result.data.additionalImages,
       },
     });
   } catch (err) {
