@@ -14,7 +14,7 @@ export default function ProductGallery({
   const safeImages = images || [];
 
   const [activeImage, setActiveImage] = useState<string | null>(
-    safeImages.length > 0 ? safeImages[0] : null
+    safeImages.length > 0 ? safeImages[0] : null,
   );
 
   // State untuk mengontrol apakah Modal/Lightbox terbuka
@@ -36,9 +36,7 @@ export default function ProductGallery({
   return (
     <div className="flex flex-col gap-4">
       {/* --- GAMBAR UTAMA --- */}
-      <div
-        className="relative aspect-square w-full overflow-hidden rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center group"
-      >
+      <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center group">
         {activeImage ? (
           <div
             className="w-full h-full cursor-zoom-in relative"
@@ -87,9 +85,10 @@ export default function ProductGallery({
               className={`
                 relative aspect-square w-full cursor-pointer overflow-hidden rounded-md border-2 
                 transition-all duration-200 hover:opacity-100
-                ${activeImage === img
-                  ? "border-blue-600 opacity-100 ring-1 ring-blue-600"
-                  : "border-transparent opacity-60 hover:border-gray-300"
+                ${
+                  activeImage === img
+                    ? "border-blue-600 opacity-100 ring-1 ring-blue-600"
+                    : "border-transparent opacity-60 hover:border-gray-300"
                 }
               `}
             >
@@ -114,8 +113,19 @@ export default function ProductGallery({
             onClick={() => setIsModalOpen(false)}
             className="absolute top-4 right-4 text-white hover:text-gray-300 bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
 
