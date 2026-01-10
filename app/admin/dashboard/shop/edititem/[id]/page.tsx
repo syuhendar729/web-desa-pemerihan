@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getShopItemDataById } from "@/services/getShopItemDataById-dashboardEditShop";
+import { getShopItemData } from "@/services/getShopItemDataById-dashboardEditShop";
 import EditShopItemForm from "@/ui/editShopItemForm";
 
 export default async function EditPage({
@@ -14,7 +14,7 @@ export default async function EditPage({
     return notFound();
   }
 
-  const [item, imageUrl] = await getShopItemDataById(itemId);
+  const [item, imageUrls] = await getShopItemData(itemId);
 
   if (!item) {
     return notFound();
@@ -26,7 +26,9 @@ export default async function EditPage({
     price: Number(item.price),
     contact: item.contact,
     description: item.description,
-    previewUrl: imageUrl,
+    previewUrl: (imageUrls ?? []).filter(
+      (url): url is string => typeof url === "string",
+    ),
   };
 
   return <EditShopItemForm initialData={initialData} />;

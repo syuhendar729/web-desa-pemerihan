@@ -5,19 +5,26 @@ import { validateBody } from "@/libs/requestHelper";
 import { validateJwtAuthHelper } from "@/libs/authHelper";
 import { generateSlug } from "@/libs/generateSlugHelper";
 
+const MAX_IMAGES = 5;
+
 const ShopItem = z.object({
   name: z.string(),
   price: z.coerce.number(),
   contact: z.string(),
   description: z.string(),
-  featuredImageUrl: z.string().min(5).optional(),
+  imagesUrl: z.array(z.string()).max(MAX_IMAGES),
 });
+
+const isObjectKey = (value: string) => {
+  return !value.startsWith("http://") && !value.startsWith("https://");
+};
 
 export async function PUT(
   req: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
+  const imageArr: string[] = [];
   let oldItem;
   let newSlug;
 
@@ -76,6 +83,18 @@ export async function PUT(
       );
     }
   }
+
+  for (let i = 0; i < MAX_IMAGES; i++) {
+    const inChanges = result.data.imagesUrl?.[i];
+    const oldUrl = oldItem.imagesUrl?.[i];
+
+    if (typeof inChanges === "string" && isObjectKey(inChanges)) {
+      imageArr.push(inChanges);
+    } else if (typeof oldUrl === "string") {
+      imageArr.push(oldUrl);
+    }
+  }
+
   try {
     const updatedItem = await prisma.shopItems.update({
       where: { id: itemId },
@@ -85,8 +104,7 @@ export async function PUT(
         price: result.data.price,
         contact: result.data.contact,
         slug: newSlug,
-        featuredImageUrl:
-          result.data.featuredImageUrl || oldItem.featuredImageUrl,
+        imagesUrl: imageArr,
       },
     });
 
