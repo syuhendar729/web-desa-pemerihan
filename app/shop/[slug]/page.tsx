@@ -18,9 +18,7 @@ export default async function Page({
           <h2 className="text-2xl font-bold text-gray-800">
             Produk Tidak Ditemukan atau bermasalah
           </h2>
-          <p className="text-gray-500">
-            Maaf, data produk tidak tersedia.
-          </p>
+          <p className="text-gray-500">Maaf, data produk tidak tersedia.</p>
         </div>
       </div>
     );
@@ -40,43 +38,40 @@ export default async function Page({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 md:p-8">
           {/* Kolom Kiri: Gambar */}
 
-          <ProductGallery
-            images={imagesUrl}
-            productName={shopItem.name}
-          />
+          <ProductGallery images={imagesUrl} productName={shopItem.name} />
 
-        {/* Kolom Kanan: Detail Produk */}
-        <div className="flex flex-col">
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-            {shopItem.name}
-          </h1>
+          {/* Kolom Kanan: Detail Produk */}
+          <div className="flex flex-col">
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+              {shopItem.name}
+            </h1>
 
-          <p className="mt-2 text-2xl font-bold text-blue-600">
-            {formattedPrice}
-          </p>
+            <p className="mt-2 text-2xl font-bold text-blue-600">
+              {formattedPrice}
+            </p>
 
-          <div className="mt-8">
-            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-              <p className="text-sm text-gray-500 mb-1">Hubungi Penjual:</p>
-              <p className="text-lg font-semibold text-gray-800 break-all">
-                {shopItem.contact}
-              </p>
-              <button className="mt-3 w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 px-4 rounded-lg transition-colors">
-                Chat Penjual
-              </button>
+            <div className="mt-8">
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p className="text-sm text-gray-500 mb-1">Hubungi Penjual:</p>
+                <p className="text-lg font-semibold text-gray-800 break-all">
+                  {shopItem.contact}
+                </p>
+                <button className="mt-3 w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 px-4 rounded-lg transition-colors">
+                  Chat Penjual
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div className="mt-6 border-t border-gray-100 pt-6">
-            <h3 className="text-sm font-medium text-gray-900">Deskripsi</h3>
-            <div className="mt-2 prose prose-sm text-gray-600 whitespace-pre-line leading-relaxed">
-              {shopItem.description ||
-                "Tidak ada deskripsi untuk produk ini."}
+            <div className="mt-6 border-t border-gray-100 pt-6">
+              <h3 className="text-sm font-medium text-gray-900">Deskripsi</h3>
+              <div className="mt-2 prose prose-sm text-gray-600 whitespace-pre-line leading-relaxed">
+                {shopItem.description ||
+                  "Tidak ada deskripsi untuk produk ini."}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div >
   );
 }

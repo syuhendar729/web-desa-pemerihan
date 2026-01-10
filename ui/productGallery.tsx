@@ -7,13 +7,16 @@ interface ProductGalleryProps {
   productName: string;
 }
 
-export default function ProductGallery({ images, productName }: ProductGalleryProps) {
+export default function ProductGallery({
+  images,
+  productName,
+}: ProductGalleryProps) {
   // Jika images null/undefined, inisialisasi dengan array kosong
   const safeImages = images || [];
-  
+
   // State untuk menyimpan URL gambar yang sedang aktif/ditampilkan
   const [activeImage, setActiveImage] = useState<string | null>(
-    safeImages.length > 0 ? safeImages[0] : null
+    safeImages.length > 0 ? safeImages[0] : null,
   );
 
   return (

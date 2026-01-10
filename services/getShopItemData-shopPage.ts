@@ -2,7 +2,10 @@ import prisma from "@/libs/prisma";
 import { getPresignedDownloadUrl } from "@/libs/awsS3Action";
 import { Prisma } from "@/generated/prisma/client";
 
-type ShopItemResult = [Prisma.ShopItemsGetPayload<{}> | null, (string | null)[]];
+type ShopItemResult = [
+  Prisma.ShopItemsGetPayload<{}> | null,
+  (string | null)[],
+];
 
 export async function getShopItemData(slug: string): Promise<ShopItemResult> {
   try {
@@ -15,7 +18,6 @@ export async function getShopItemData(slug: string): Promise<ShopItemResult> {
     }
 
     const uploadPromises = itemShop.imagesUrl.map(async (currentFile) => {
-
       let imageUrl = null;
       if (itemShop.imagesUrl) {
         const result = await getPresignedDownloadUrl(currentFile);
@@ -27,7 +29,7 @@ export async function getShopItemData(slug: string): Promise<ShopItemResult> {
     });
 
     const imageUrlArray = await Promise.all(uploadPromises);
-    console.log(imageUrlArray)
+    console.log(imageUrlArray);
 
     return [itemShop, imageUrlArray];
   } catch (error) {

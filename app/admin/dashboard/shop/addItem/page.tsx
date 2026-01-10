@@ -13,12 +13,12 @@ export default function Page() {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState<(File | null)[]>([]);
   const fileInputRef = useRef<(HTMLInputElement | null)[]>([]);
-  const howMuchImages = [0, 1, 2, 3, 4]
+  const howMuchImages = [0, 1, 2, 3, 4];
 
   const handleAddArticle = async (objectName: string[]) => {
     try {
       const token = localStorage.getItem("auth");
-      console.log(objectName)
+      console.log(objectName);
 
       const res = await fetch("http://localhost:3000/api/shopitem", {
         method: "POST",
@@ -63,11 +63,13 @@ export default function Page() {
         // 1. Get Presigned URL
         const { success, url, objectName, error } = await getPresignedUploadUrl(
           currentFile.name,
-          currentFile.type
+          currentFile.type,
         );
 
         if (!success || !url || !objectName) {
-          throw new Error(`Gagal generate URL untuk ${currentFile.name}: ${error}`);
+          throw new Error(
+            `Gagal generate URL untuk ${currentFile.name}: ${error}`,
+          );
         }
 
         // 2. Upload ke MinIO (PUT)
@@ -93,7 +95,6 @@ export default function Page() {
 
       // D. Panggil fungsi simpan ke DB dengan array hasil upload
       handleAddArticle(uploadedObjectNames);
-
     } catch (err: any) {
       console.error("Upload Error:", err);
       alert("Terjadi kesalahan saat mengupload gambar.");
@@ -104,7 +105,7 @@ export default function Page() {
   const handleCustomClick = (index: number) => {
     fileInputRef.current[index]?.click();
   };
-  console.log(file)
+  console.log(file);
 
   return (
     <>
@@ -144,7 +145,7 @@ export default function Page() {
 
         <div className="flex items-start gap-2">
           <span>Gambar: </span>
-          {howMuchImages.map(i =>
+          {howMuchImages.map((i) => (
             <div key={i}>
               {/* Input gambar (hidden)*/}
               <div>
@@ -192,7 +193,7 @@ export default function Page() {
                 />
               )}
             </div>
-          )}
+          ))}
         </div>
 
         {/* Input deskripsi */}
