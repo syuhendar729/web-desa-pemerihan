@@ -38,7 +38,7 @@ export default function Page() {
     try {
       // Catatan: Pastikan URL API sudah benar
       const res = await fetch(
-        "http://localhost:3000/api/shopitem?page=1&limit=10",
+        "http://localhost:3000/api/shopitem/client?page=1&limit=10",
         {
           method: "GET",
           headers: {
