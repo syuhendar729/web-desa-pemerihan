@@ -86,7 +86,7 @@ export default function Page() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-green-50/30">
       <div className="flex justify-center mt-5 pb-5 text-2xl border-b border-slate-200 mx-5">
-       <h1>Artikel</h1>
+        <h1>Artikel</h1>
       </div>
       <section className="pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -161,10 +161,11 @@ export default function Page() {
                   <Link
                     key={pageNum}
                     href={createPageUrl(pageNum, searchParams, pathname)}
-                    className={`w-10 h-10 flex items-center justify-center rounded-lg border text-sm font-medium transition-colors ${pageNum === page
+                    className={`w-10 h-10 flex items-center justify-center rounded-lg border text-sm font-medium transition-colors ${
+                      pageNum === page
                         ? "bg-[#2D5A27] text-white border-[#2D5A27]"
                         : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                      }`}
+                    }`}
                   >
                     {pageNum}
                   </Link>
@@ -175,10 +176,11 @@ export default function Page() {
             <Link
               href={createPageUrl(page + 1, searchParams, pathname)}
               prefetch={false}
-              className={`p-2 rounded-lg border ${page >= meta.totalPages
+              className={`p-2 rounded-lg border ${
+                page >= meta.totalPages
                   ? "pointer-events-none opacity-50 bg-gray-100 text-gray-400"
                   : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
-                }`}
+              }`}
               aria-disabled={page >= meta.totalPages}
             >
               <ChevronRight className="w-5 h-5" />

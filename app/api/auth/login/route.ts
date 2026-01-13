@@ -3,7 +3,7 @@ import prisma from "@/libs/prisma";
 import { Prisma } from "@/generated/prisma/client";
 import * as z from "zod";
 import jwt from "jsonwebtoken";
-import { AUTH_CONFIG } from "@/libs/JWTConfig";
+import { AUTH_CONFIG } from "@/libs/config/JWTConfig";
 import { validateBody } from "@/libs/requestHelper";
 
 const User = z.object({
