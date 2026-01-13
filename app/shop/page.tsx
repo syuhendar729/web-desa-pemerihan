@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getShopItemImages } from "@/libs/presignedDownloadHelper";
-import formatRupiah from "@/libs/rupiahFormat";
+import { getShopItemImages } from "@/helpers/presignedDownloadHelper";
+import formatRupiah from "@/helpers/rupiahFormat";
 
 interface ShopItem {
   createdAt: string;
