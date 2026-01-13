@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getShopItemImages } from "@/helper/presignedDownloadHelper";
-import formatRupiah from "@/libs/rupiahFormat";
+import formatRupiah from "@/helper/rupiahFormat";
 
 interface ShopItem {
   createdAt: string;
