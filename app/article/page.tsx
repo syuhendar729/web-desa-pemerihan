@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { Calendar, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getShopItemImages } from "@/libs/presignedDownloadHelper";
+import { getShopItemImages } from "@/helper/presignedDownloadHelper";
 import { useSearchParams, usePathname } from "next/navigation";
 import {
   createPageUrl,
