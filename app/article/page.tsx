@@ -4,51 +4,7 @@ import { Calendar, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getShopItemImages } from "@/libs/presignedDownloadHelper";
 import { useSearchParams, usePathname } from "next/navigation";
-
-// --- [TAMBAHAN] Helper Function untuk logic Ellipsis ---
-const generatePagination = (currentPage: number, totalPages: number) => {
-  // Jika total halaman sedikit (<= 7), tampilkan semua
-  if (totalPages <= 5) {
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-
-  const siblingCount = 1; // Jumlah halaman tetangga di kiri/kanan halaman aktif
-  const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
-  const rightSiblingIndex = Math.min(currentPage + siblingCount, totalPages);
-
-  // Cek apakah perlu menampilkan titik-titik
-  const showLeftDots = leftSiblingIndex > 2;
-  const showRightDots = rightSiblingIndex < totalPages - 1;
-
-  // Case 1: Hanya titik di kanan (Posisi user di awal)
-  if (!showLeftDots && showRightDots) {
-    const leftItemCount = 3 + 2 * siblingCount;
-    const leftRange = Array.from({ length: leftItemCount }, (_, i) => i + 1);
-    return [...leftRange, "...", totalPages];
-  }
-
-  // Case 2: Hanya titik di kiri (Posisi user di akhir)
-  if (showLeftDots && !showRightDots) {
-    const rightItemCount = 3 + 2 * siblingCount;
-    const rightRange = Array.from(
-      { length: rightItemCount },
-      (_, i) => totalPages - rightItemCount + i + 1,
-    );
-    return [1, "...", ...rightRange];
-  }
-
-  // Case 3: Titik di kiri dan kanan (Posisi user di tengah)
-  if (showLeftDots && showRightDots) {
-    const middleRange = Array.from(
-      { length: rightSiblingIndex - leftSiblingIndex + 1 },
-      (_, i) => leftSiblingIndex + i,
-    );
-    return [1, "...", ...middleRange, "...", totalPages];
-  }
-
-  return [];
-};
-// ------------------------------------------------------
+import { createPageUrl, generatePagination } from "@/libs/pageNumberingUiHelper";
 
 type PaginationMeta = {
   currentPage: number;
@@ -61,7 +17,6 @@ export default function Page() {
   const pathname = usePathname();
   const page = Number(searchParams.get("page")) || 1;
 
-  // const [isLoading, setIsLoading] = useState(true);
   const [imgArr, setImgArr] = useState<string[]>([]);
   const [imgDownloadArr, setImgDownloadArr] = useState<(string | null)[]>([]);
   const [shopItems, setShopItems] = useState<any>([]);
@@ -85,10 +40,7 @@ export default function Page() {
     getPresigned();
   }, [imgArr]);
 
-  console.log("params: ", page);
-
   const getShopData = async () => {
-    // setIsLoading(true);
     const token = localStorage.getItem("auth");
 
     try {
@@ -126,22 +78,10 @@ export default function Page() {
       }
     } catch (err) {
       console.error("Fetch Error:", err);
-    } finally {
-      // setIsLoading(false);
     }
   };
 
-  const createPageUrl = (newPage: number | string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", newPage.toString());
-    return `${pathname}?${params.toString()}`;
-  };
-
-  // --- [TAMBAHAN] Generate array halaman ---
   const paginationList = generatePagination(meta.currentPage, meta.totalPages);
-  // ----------------------------------------
-  //
-  console.log(meta);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-green-50/30">
@@ -218,12 +158,11 @@ export default function Page() {
                 return (
                   <Link
                     key={pageNum}
-                    href={createPageUrl(pageNum)}
-                    className={`w-10 h-10 flex items-center justify-center rounded-lg border text-sm font-medium transition-colors ${
-                      pageNum === page
+                    href={createPageUrl(pageNum, searchParams, pathname)}
+                    className={`w-10 h-10 flex items-center justify-center rounded-lg border text-sm font-medium transition-colors ${pageNum === page
                         ? "bg-[#2D5A27] text-white border-[#2D5A27]"
                         : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     {pageNum}
                   </Link>
@@ -234,13 +173,12 @@ export default function Page() {
 
             {/* Tombol Next (Tidak Berubah) */}
             <Link
-              href={createPageUrl(page + 1)}
+              href={createPageUrl(page + 1, searchParams, pathname)}
               prefetch={false}
-              className={`p-2 rounded-lg border ${
-                page >= meta.totalPages
+              className={`p-2 rounded-lg border ${page >= meta.totalPages
                   ? "pointer-events-none opacity-50 bg-gray-100 text-gray-400"
                   : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300"
-              }`}
+                }`}
               aria-disabled={page >= meta.totalPages}
             >
               <ChevronRight className="w-5 h-5" />
