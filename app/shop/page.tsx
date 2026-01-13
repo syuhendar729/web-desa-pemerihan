@@ -115,23 +115,23 @@ export default function Page() {
 
       {/* Grid Layout untuk Card */}
       {!isLoading && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16">
           {shopItems.map((item, i) => (
             <div
               key={item.slug}
-              className="group bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col"
+              className="group bg-white transition-all duration-300 overflow-hidden flex flex-col"
             >
               {/* Action Button */}
               <Link
                 href={`/shop/${item.slug}`} // Sesuaikan dengan routing detail page Anda
               >
                 {/* Bagian Image - Mengambil index 0 */}
-                <div className="relative aspect-square bg-gray-100 overflow-hidden">
+                <div className="relative aspect-square rounded-xl bg-gray-100 overflow-hidden">
                   {item.imagesUrl && item.imagesUrl.length > 0 ? (
                     <img
                       src={imgDownloadArr[i]!}
                       alt={item.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full hover:rounded-xl object-cover group-hover:scale-105 transition-transform duration-100"
                     />
                   ) : (
                     // Fallback jika tidak ada gambar
@@ -142,17 +142,17 @@ export default function Page() {
                 </div>
 
                 {/* Bagian Konten */}
-                <div className="p-4 flex flex-col flex-grow">
+                <div className="py-4 px-2 flex flex-col flex-grow">
                   {/* Nama Produk (Truncate jika terlalu panjang) */}
                   <h3
-                    className="font-semibold text-gray-800 text-lg mb-1 truncate"
+                    className="font-medium text-gray-800 mb-1 truncate"
                     title={item.name}
                   >
                     {item.name}
                   </h3>
 
                   {/* Harga */}
-                  <p className="text-emerald-600 font-bold text-lg mb-2">
+                  <p className="font-bold text-lg mb-2">
                     {formatRupiah(item.price)}
                   </p>
 
@@ -190,7 +190,7 @@ export default function Page() {
                 href={createPageUrl(pageNum, searchParams, pathname)}
                 className={`w-10 h-10 flex items-center justify-center rounded-lg border text-sm font-medium transition-colors ${
                   pageNum === page
-                    ? "bg-[#2D5A27] text-white border-[#2D5A27]"
+                    ? "bg-yellow-400 text-gray-700 border-yellow-400"
                     : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
                 }`}
               >
