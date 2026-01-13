@@ -74,6 +74,7 @@ export default function EditArticleForm({ initialData }: ArticleFormProps) {
         const { success, url, objectName, error } = await getPresignedUploadUrl(
           file.name,
           file.type,
+          file.size,
         );
 
         if (!success || !url || !objectName) {

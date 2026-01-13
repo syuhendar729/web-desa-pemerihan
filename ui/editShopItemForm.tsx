@@ -57,6 +57,7 @@ export default function EditShopItemForm({ initialData }: ShopItemFormProps) {
           const { success, url, objectName } = await getPresignedUploadUrl(
             file.name,
             file.type,
+            file.size,
           );
 
           if (!success || !url || !objectName) {

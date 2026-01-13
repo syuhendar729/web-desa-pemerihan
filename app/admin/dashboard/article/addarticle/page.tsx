@@ -55,6 +55,7 @@ export default function Page() {
       const { success, url, objectName, error } = await getPresignedUploadUrl(
         file.name,
         file.type,
+        file.size,
       );
 
       if (!success || !url || !objectName) {
