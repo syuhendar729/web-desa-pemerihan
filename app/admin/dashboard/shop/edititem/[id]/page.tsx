@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getShopItemData } from "@/services/getShopItemDataById-dashboardEditShop";
-import EditShopItemForm from "@/ui/editShopItemForm";
+import EditShopItemForm from "@/components/nonShared/editShopItemForm";
 
 export default async function EditPage({
   params,

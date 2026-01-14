@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   createPageUrl,
   generatePagination,
-} from "@/helper/pageNumberingUiHelper";
+} from "@/helpers/pageNumberingUiHelper";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { getShopItemImages } from "@/helpers/presignedDownloadHelper";
@@ -101,7 +101,7 @@ export default function Page() {
   const paginationList = generatePagination(meta.currentPage, meta.totalPages);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6 text-gray-800">Daftar Produk</h1>
 
       {/* Loading State Skeleton (Sederhana) */}

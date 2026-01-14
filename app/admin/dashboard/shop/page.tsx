@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import DashboardSidebar from "@/ui/dashboardSidebar";
+import DashboardSidebar from "@/components/nonShared/dashboardSidebar";
 import { MdAddBusiness } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { CiTrash } from "react-icons/ci";

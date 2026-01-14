@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getArticleDataById } from "@/services/getArticleDataById-dashboardEditArticle";
-import EditArticleForm from "@/ui/editArticleForm";
+import EditArticleForm from "@/components/nonShared/editArticleForm";
 
 export default async function EditPage({
   params,

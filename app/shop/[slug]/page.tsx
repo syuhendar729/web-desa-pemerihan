@@ -1,5 +1,5 @@
 import { getShopItemData } from "@/services/getShopItemData-shopPage";
-import ProductGallery from "@/ui/productGallery";
+import ProductGallery from "@/components/nonShared/productGallery";
 import { FaWhatsapp } from "react-icons/fa";
 
 export default async function Page({
