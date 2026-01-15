@@ -14,16 +14,27 @@ import {
   generatePagination,
 } from "@/helpers/pageNumberingUiHelper";
 
+interface Article {
+  id: number;
+  createdAt: string;
+  title: string;
+  slug: string;
+  featuredImageUrl: string;
+  content: string;
+}
+
 export default function ArticleDashboard() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [articles, setArticles] = useState<any>([]);
+  // const [articles, setArticles] = useState<any>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [meta, setMeta] = useState({
     currentPage: 1,
     totalPages: 1,
     totalItems: 0,
   });
+
   const router = useRouter();
   const page = Number(searchParams.get("page")) || 1;
 
@@ -67,6 +78,7 @@ export default function ArticleDashboard() {
           totalItems: data.meta.totalItems,
         });
       }
+      console.log(data.data);
     } catch (err) {
       console.error(err);
     } finally {

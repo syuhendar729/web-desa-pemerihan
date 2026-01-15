@@ -14,16 +14,29 @@ import {
   generatePagination,
 } from "@/helpers/pageNumberingUiHelper";
 
+interface ShopItem {
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  description: string;
+  createdAt: string;
+  imagesUrl: [];
+}
+
 export default function Page() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [shopItem, setShopItem] = useState<any>([]);
+  // const [shopItem, setShopItem] = useState<any>([]);
+  const [shopItem, setShopItem] = useState<ShopItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [meta, setMeta] = useState({
     currentPage: 1,
     totalPages: 1,
     totalItems: 0,
   });
+  
+  const [errorMsg, setErrorMsg] = useState("");
   const router = useRouter();
   const page = Number(searchParams.get("page")) || 1;
 
@@ -46,7 +59,7 @@ export default function Page() {
         },
       );
 
-  const data = await res.json();
+      const data = await res.json();
 
       // if success != true, fallback user to login page
       if (!data.success) {
@@ -67,8 +80,20 @@ export default function Page() {
           totalItems: data.meta.totalItems,
         });
       }
+      console.log(data.data);
     } catch (err) {
-      console.error(err);
+      let errorMessage = "Gagal mengambil data produk.";
+
+      if (err instanceof Error) {
+        errorMessage = err.message;
+
+        if (err.message === "Unauthorized") {
+          router.push("/auth/login");
+          return;
+        }
+      }
+
+      setErrorMsg(errorMessage);
     } finally {
       setIsLoading(false);
     }
