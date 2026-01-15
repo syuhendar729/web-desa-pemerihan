@@ -10,13 +10,13 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
 interface ShopItem {
-  id: number,
-  name: string,
-  slug: string,
-  price: number,
-  description: string,
-  createdAt: string,
-  imagesUrl: []
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  description: string;
+  createdAt: string;
+  imagesUrl: [];
 }
 
 export default function Page() {
@@ -31,16 +31,13 @@ export default function Page() {
   const getShopData = async () => {
     const token = localStorage.getItem("auth");
     try {
-      const res = await fetch(
-        "/api/shopitem?page=1&limit=10",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const res = await fetch("/api/shopitem?page=1&limit=10", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       const data = await res.json();
 

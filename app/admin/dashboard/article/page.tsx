@@ -10,12 +10,12 @@ import { RiExpandDiagonalLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
 
 interface Article {
-  id: number,
-  createdAt: string,
-  title: string,
-  slug: string,
-  featuredImageUrl: string,
-  content: string,
+  id: number;
+  createdAt: string;
+  title: string;
+  slug: string;
+  featuredImageUrl: string;
+  content: string;
 }
 
 export default function ArticleDashboard() {
@@ -29,16 +29,13 @@ export default function ArticleDashboard() {
   const getArticleData = async () => {
     const token = localStorage.getItem("auth");
     try {
-      const res = await fetch(
-        "/api/article?page=1&limit=10",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const res = await fetch("/api/article?page=1&limit=10", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       const data = await res.json();
 
@@ -54,7 +51,7 @@ export default function ArticleDashboard() {
       }
 
       setArticles(data.data);
-      console.log(data.data)
+      console.log(data.data);
     } catch (err) {
       console.error(err);
     }
