@@ -1,5 +1,7 @@
 export const generateSlug = (text: string) => {
-  const date = new Date();
+  let date = Date.now();
+  date = date as number;
+  console.log(date);
   text
     .toString()
     .toLowerCase()
