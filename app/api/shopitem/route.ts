@@ -7,9 +7,9 @@ import { Prisma } from "@/generated/prisma/client";
 import { generateSlug } from "@/helpers/generateSlugHelper";
 
 const ShopItem = z.object({
-  name: z.string(),
-  price: z.int(),
-  contact: z.string(),
+  name: z.string().min(5),
+  price: z.int().min(3),
+  contact: z.string().min(10).max(13),
   description: z.string(),
   imagesUrl: z.array(z.string()),
 });
