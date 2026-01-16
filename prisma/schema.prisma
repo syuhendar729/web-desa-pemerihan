@@ -38,6 +38,7 @@ model ShopItems {
   price     Int
   slug      String   @unique
   contact   String
+  owner     String
   description       String   @db.Text
   imagesUrl  String[] @map("images")
 }

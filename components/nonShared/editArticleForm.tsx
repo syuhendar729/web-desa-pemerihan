@@ -49,6 +49,7 @@ export default function EditArticleForm({ initialData }: ArticleFormProps) {
         body: JSON.stringify({
           title: title,
           content: value,
+          shortDescription: shortDescription,
           featuredImageUrl: objectName || undefined,
         }),
       });
