@@ -11,6 +11,7 @@ const ShopItem = z.object({
   price: z.int().min(3),
   contact: z.string(),
   description: z.string(),
+  owner: z.string(),
   imagesUrl: z.array(z.string()),
 });
 
@@ -71,6 +72,7 @@ export async function POST(req: Request) {
         slug: finalSlug,
         price: result.data.price,
         contact: result.data.contact,
+        owner: result.data.owner,
         description: result.data.description,
         imagesUrl: result.data.imagesUrl,
       },

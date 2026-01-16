@@ -12,6 +12,7 @@ const ShopItem = z.object({
   name: z.string(),
   price: z.coerce.number(),
   contact: z.string(),
+  owner: z.string(),
   description: z.string(),
   imagesUrl: z.array(z.string()).max(MAX_IMAGES),
 });
@@ -107,6 +108,7 @@ export async function PUT(
         description: result.data.description,
         price: result.data.price,
         contact: result.data.contact,
+        owner: result.data.owner,
         slug: newSlug,
         imagesUrl: imageArr,
       },
