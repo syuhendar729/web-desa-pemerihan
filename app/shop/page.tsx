@@ -145,9 +145,7 @@ function ShopContent() {
                   {item.name}
                 </h3>
 
-                <p className="font-bold text-lg">
-                  {formatRupiah(item.price)}
-                </p>
+                <p className="font-bold text-lg">{formatRupiah(item.price)}</p>
 
                 <p className="text-sm text-gray-600 line-clamp-2 flex-grow">
                   {item.owner}

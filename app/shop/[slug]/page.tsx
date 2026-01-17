@@ -59,7 +59,7 @@ export default async function Page({
                 <p className="text-lg font-semibold text-gray-600 break-all">
                   +{shopItem.contact}
                 </p>
-                <WhatsAppButton shopItem={shopItem}/>
+                <WhatsAppButton shopItem={shopItem} />
               </div>
             </div>
 
