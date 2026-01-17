@@ -9,6 +9,7 @@ interface ShopItem {
   slug: string;
   contact: string;
   description: string;
+  owner: string;
   imagesUrl: string[];
 }
 
@@ -20,7 +21,11 @@ export default function WhatsAppButton({ shopItem }: WhatsAppButtonProps) {
   return (
     <button
       onClick={() => {
-        const url = whatsappRedirect(shopItem.name, shopItem.contact, null);
+        const url = whatsappRedirect(
+          shopItem.name,
+          shopItem.contact,
+          shopItem.owner,
+        );
         window.open(url, "_blank");
       }}
       className="flex justify-center items-center gap-1 mt-3 w-full bg-[#075e54] hover:bg-slate-800 text-white font-medium py-3 px-4 rounded-lg transition-colors"

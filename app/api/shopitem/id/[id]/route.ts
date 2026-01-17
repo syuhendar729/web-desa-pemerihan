@@ -100,6 +100,11 @@ export async function PUT(
     }
   }
 
+  let dialNum = result.data.contact;
+  if (dialNum.startsWith("0")) {
+    dialNum = "62" + dialNum.slice(1);
+  }
+
   try {
     const updatedItem = await prisma.shopItems.update({
       where: { id: itemId },
@@ -107,7 +112,7 @@ export async function PUT(
         name: result.data.name,
         description: result.data.description,
         price: result.data.price,
-        contact: result.data.contact,
+        contact: dialNum,
         owner: result.data.owner,
         slug: newSlug,
         imagesUrl: imageArr,

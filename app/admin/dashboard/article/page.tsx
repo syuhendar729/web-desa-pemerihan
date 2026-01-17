@@ -222,8 +222,8 @@ function ArticleDashboard() {
 
 export default function Page() {
   return (
-      <Suspense>
-        <ArticleDashboard />
-      </Suspense>
+    <Suspense>
+      <ArticleDashboard />
+    </Suspense>
   );
 }

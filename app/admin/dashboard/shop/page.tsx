@@ -235,8 +235,8 @@ function ShopDashboard() {
 
 export default function Page() {
   return (
-      <Suspense>
-        <ShopDashboard />
-      </Suspense>
+    <Suspense>
+      <ShopDashboard />
+    </Suspense>
   );
 }
