@@ -31,11 +31,17 @@ function AccountDashboard() {
     totalItems: 0,
   });
 
-  const paginationList = generatePagination(meta.currentPage, meta.totalPages);
+  const [isEditPopup, setIsEditPopup] = useState<boolean>(false);
+  const [nameAccount, setNameAccount] = useState<string>("");
+  const [idAccount, setIdAccount] = useState<number>(0);
+  const [oldPassword, setOldPassword] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
 
   useEffect(() => {
     getAccountData();
   }, [page]);
+
+  const paginationList = generatePagination(meta.currentPage, meta.totalPages);
 
   const getAccountData = async () => {
     setIsLoading(true);
@@ -101,6 +107,36 @@ function AccountDashboard() {
     }
   };
 
+  const handleEditPassword = async () => {
+    const token = localStorage.getItem("auth");
+    try {
+      const res = await fetch(`/api/auth/changepassword`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          username: nameAccount,
+          password: oldPassword,
+          newPassword: newPassword,
+        }),
+      });
+
+      // error handling
+      if (!res.ok) {
+        throw new Error("Request failed");
+      }
+
+      // running get shop data again to refresh data without refreshing all page
+      getAccountData();
+
+      alert(`Password ${nameAccount} berhasil diubah`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="flex flex-col md:flex-row min-h-dvh bg-[#FFFFFF]">
       <DashboardSidebar />
@@ -134,12 +170,16 @@ function AccountDashboard() {
                 </div>
 
                 <div className="flex gap-1 text-sm font-medium">
-                  <Link
-                    href={`/admin/dashboard/article/editarticle/${article.id}`}
+                  <div
                     className="px-3 py-1 text-xl text-[#1e66f5] hover:bg-blue-50 rounded border border-transparent"
+                    onClick={() => {
+                      setIsEditPopup(true);
+                      setNameAccount(article.name);
+                      setIdAccount(article.id);
+                    }}
                   >
                     <MdOutlineModeEdit />
-                  </Link>
+                  </div>
                   <button
                     className="px-3 py-1 text-xl text-[#e64553] hover:bg-red-50 rounded"
                     onClick={() => handleDelete(article.id)}
@@ -197,6 +237,57 @@ function AccountDashboard() {
           </Link>
         </div>
       </main>
+
+      {/* Edit Password Popup */}
+      {isEditPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white w-full max-w-md rounded-2xl p-6 shadow-xl">
+            <div className="font-bold text-xl mb-1">
+              Ganti Password {nameAccount}
+            </div>
+            <p className="text-sm text-gray-500 mb-4">
+              Masukkan password lama dan baru
+            </p>
+
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm text-slate-700 mb-1">Password lama</p>
+                <input
+                  className="w-full border rounded-xl border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  value={oldPassword}
+                  type="password"
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <p className="text-sm text-slate-700 mb-1">Password baru</p>
+                <input
+                  className="w-full border rounded-xl border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  value={newPassword}
+                  type="password"
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 mt-6">
+              <button
+                className="px-4 py-2 rounded-xl border border-slate-300 text-sm hover:bg-gray-100"
+                onClick={() => setIsEditPopup(false)}
+              >
+                Batal
+              </button>
+              <button
+                className="px-4 py-2 rounded-xl bg-yellow-400 text-gray-800 font-medium hover:bg-yellow-500"
+                onClick={handleEditPassword}
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
