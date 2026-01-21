@@ -1,5 +1,6 @@
 import { MapPin, Phone, Mail } from "lucide-react";
 import NewsSection from "@/components/nonShared/newsSection";
+import TopProducts from "@/components/nonShared/topProducts";
 
 export default function HomePage() {
   return (
@@ -251,6 +252,7 @@ export default function HomePage() {
       </section>
 
       <NewsSection />
+      <TopProducts />
 
       {/* Lokasi Desa */}
       <section id="contact" className="py-16 md:py-24 bg-gray-50">
