@@ -42,3 +42,18 @@ model ShopItems {
   description       String   @db.Text
   imagesUrl  String[] @map("images")
 }
+
+model Location {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  name      String
+  entryFee  Int
+  slug      String   @unique
+  contact   String
+  owner     String
+  openTimeFrom      DateTime  @map("open_time_from")
+  openTimeTo        DateTime  @map("open_time_to")
+  openDay   String[] @map("open_day")
+  description       String   @db.Text
+  imagesUrl String[] @map("images")
+}
