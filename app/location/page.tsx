@@ -9,14 +9,17 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { getShopItemImages } from "@/helpers/presignedDownloadHelper";
 
-interface ShopItem {
+interface TourSpot {
   createdAt: string;
   name: string;
-  price: number;
+  entryFee: number;
   slug: string;
   contact: string;
   owner: string;
   description: string;
+  openTimeFrom: string;
+  openTimeTo: string;
+  openDay: string[];
   imagesUrl: string[];
 }
 
@@ -26,12 +29,12 @@ type PaginationMeta = {
   totalItems: number;
 };
 
-function ShopContent() {
+function TourSpotContent() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const page = Number(searchParams.get("page")) || 1;
 
-  const [shopItems, setShopItems] = useState<ShopItem[]>([]);
+  const [tourSpots, setTourSpots] = useState<TourSpot[]>([]);
   const [imgArr, setImgArr] = useState<string[]>([]);
   const [imgDownloadArr, setImgDownloadArr] = useState<(string | null)[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,7 +63,7 @@ function ShopContent() {
     const token = localStorage.getItem("auth");
 
     try {
-      const res = await fetch(`/api/shopitem/client?page=${page}&limit=12`, {
+      const res = await fetch(`/api/tourspot/client?page=${page}&limit=12`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -75,10 +78,11 @@ function ShopContent() {
       }
 
       const collectedImages = data.data.map(
-        (item: ShopItem) => item.imagesUrl[0],
+        (item: TourSpot) => item.imagesUrl[0],
       );
+
       setImgArr(collectedImages);
-      setShopItems(data.data);
+      setTourSpots(data.data);
 
       if (data.meta) {
         setMeta({
@@ -98,11 +102,11 @@ function ShopContent() {
 
   // Jika sedang loading data API (Client Side Fetching)
   if (isLoading) {
-    return <ShopListSkeleton />;
+    return <TourSpotListSkeleton />;
   }
 
   // Jika data kosong
-  if (!isLoading && shopItems.length === 0) {
+  if (!isLoading && tourSpots.length === 0) {
     return (
       <div className="text-center py-10 text-gray-500">
         Belum ada produk yang tersedia.
@@ -114,7 +118,7 @@ function ShopContent() {
     <>
       {/* Grid Layout untuk Card */}
       <div className="gap-5 md:gap-10 lg:gap-16">
-        {shopItems.map((item, i) => (
+        {tourSpots.map((item, i) => (
           <div
             key={item.slug}
             className="group bg-white transition-all duration-300 overflow-hidden flex md:mx-20 lg:mx-40 mb-20 flex-col"
@@ -138,7 +142,19 @@ function ShopContent() {
               <div className="pb-4 pt-1 flex flex-col flex-grow">
                 <p className="text-3xl font-semibold">{item.name}</p>
                 <p className="font-medium text-gray-700">
-                  Buka jam 07:00 - 16:00 WIB
+                  Buka jam{" "}
+                  {new Date(item.openTimeFrom).toLocaleTimeString("id-ID", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })}{" "}
+                  -{" "}
+                  {new Date(item.openTimeTo).toLocaleTimeString("id-ID", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: false,
+                  })}{" "}
+                  WIB
                 </p>
                 <p className="font-medium text-gray-700">Setiap hari</p>
                 <p className="text-sm text-gray-600 line-clamp-2 flex-grow mt-1">
@@ -200,20 +216,18 @@ function ShopContent() {
 export default function Page() {
   return (
     <div className="container max-w-7xl mx-auto px-4 py-8">
-      {/* Judul Render Langsung (Static) */}
       <h1 className="text-2xl font-bold mb-6 text-gray-800 md:mx-20 lg:mx-40">
         Pariwisata
       </h1>
 
-      {/* Konten Dinamis (Wrapped in Suspense) */}
-      <Suspense fallback={<ShopListSkeleton />}>
-        <ShopContent />
+      <Suspense fallback={<TourSpotListSkeleton />}>
+        <TourSpotContent />
       </Suspense>
     </div>
   );
 }
 
-function ShopListSkeleton() {
+function TourSpotListSkeleton() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 animate-pulse">
       {[...Array(12)].map((_, i) => (
