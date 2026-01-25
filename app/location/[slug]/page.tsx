@@ -46,11 +46,16 @@ export default async function Page({
               <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
                 {shopItem.name}
               </h1>
-              <p className="text-lg text-gray-600 font-medium">Biaya masuk: {formattedPrice}</p>
-              <p className="text-lg text-gray-600 font-medium">Buka jam 07:00 - 16:00 WIB</p>
-              <p className="text-lg text-gray-600 font-medium">Buka Setiap Hari</p>
+              <p className="text-lg text-gray-600 font-medium">
+                Biaya masuk: {formattedPrice}
+              </p>
+              <p className="text-lg text-gray-600 font-medium">
+                Buka jam 07:00 - 16:00 WIB
+              </p>
+              <p className="text-lg text-gray-600 font-medium">
+                Buka Setiap Hari
+              </p>
             </div>
-
 
             <div>
               <div className="mt-4">
