@@ -69,7 +69,7 @@ export default async function Page({ params }: Props) {
                   {/* Bagian Jam Operasional */}
                   <div className="flex-1 items-center justify-center">
                     <h3 className="text-xs font-bold text-gray-400 uppercase">
-                      Biaya masuk:
+                      Biaya masuk mulai dari:
                     </h3>
                     <p className="text-2xl font-bold mb-4">{formattedPrice}</p>
                     {/* Bagian kontak */}
@@ -132,26 +132,24 @@ export default async function Page({ params }: Props) {
                         />
                       </svg>
                       <span className="text-gray-700 font-bold text-lg">
-                        <time
-                          dateTime={tourSpotData.openTimeFrom.toISOString()}
-                        >
-                          {tourSpotData.openTimeFrom.toLocaleTimeString(
+                        <span>
+                          {new Date(
+                            tourSpotData.openTimeFrom,
+                          ).toLocaleTimeString("id-ID", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: false,
+                          })}{" "}
+                          -{" "}
+                          {new Date(tourSpotData.openTimeTo).toLocaleTimeString(
                             "id-ID",
                             {
                               hour: "2-digit",
                               minute: "2-digit",
                               hour12: false,
                             },
-                          )}
-                        </time>{" "}
-                        -{" "}
-                        <time dateTime={tourSpotData.openTimeTo.toISOString()}>
-                          {tourSpotData.openTimeTo.toLocaleTimeString("id-ID", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: false,
-                          })}
-                        </time>{" "}
+                          )}{" "}
+                        </span>
                         <span className="text-sm text-gray-500 ml-1">WIB</span>
                       </span>
                     </div>

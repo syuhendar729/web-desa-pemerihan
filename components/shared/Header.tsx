@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface NavLinkProps {
   href: string;
@@ -38,14 +39,17 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo Section */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center font-bold text-lg text-gray-900 shadow-sm">
-              🌾
-            </div>
+            <Image
+              width={25}
+              height={25}
+              src={"/Lambang_Kabupaten_Pesisir_Barat.svg"}
+              alt="Logo"
+            />
             <div>
               <h1 className="font-bold text-gray-900 tracking-wide text-lg leading-tight">
                 Desa Pemerihan
               </h1>
-              <p className="text-[10px] text-gray-500 uppercase tracking-wider font-medium">
+              <p className="text-sm text-gray-500 tracking-wide font-medium">
                 Kabupaten Pesisir Barat
               </p>
             </div>

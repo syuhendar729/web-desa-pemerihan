@@ -2,6 +2,7 @@ import { MapPin } from "lucide-react";
 import NewsSection from "@/components/nonShared/newsSection";
 import TopProducts from "@/components/nonShared/topProducts";
 import TopTourspot from "@/components/nonShared/topTourspot";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
@@ -67,10 +68,12 @@ export default function HomePage() {
             {/* Right Column - Image */}
             <div className="relative">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1688472616515-6d7dce94a5ab?w=800&auto=format&fit=crop"
-                  alt="Rumah Adat Desa Pemerihan"
-                  className="w-full h-auto object-cover"
+                <Image
+                  src="/images/gajah.jpg"
+                  alt="Logo"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto"
                 />
               </div>
             </div>
